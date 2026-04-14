@@ -40,5 +40,21 @@ try:
 except ImportError:
     pass
 
+def copy_files(src, dst, pattern: str = "*", overwrite: bool = False) -> int:
+    """Copy files matching pattern from src to dst."""
+    src, dst = Path(src), Path(dst)
+    if not src.exists(): return 0
+
+    dst.mkdir(parents=True, exist_ok=True)
+    copied = 0
+    for f in src.glob(pattern):
+        if f.is_file():
+            target = dst / f.relative_to(src)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if overwrite or not target.exists():
+                shutil.copy2(f, target)
+                copied += 1
+    return copied
+
 # Copy assets
-# copy_files(SCRIPT_DIR / "assets", COMFYUI_DIR / "input" / "3d", "**/*")
+copy_files(SCRIPT_DIR / "assets", COMFYUI_DIR / "input" / "3d", "**/*")
