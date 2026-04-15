@@ -57,4 +57,7 @@ def copy_files(src, dst, pattern: str = "*", overwrite: bool = False) -> int:
     return copied
 
 # Copy assets
-copy_files(SCRIPT_DIR / "assets", COMFYUI_DIR / "input" / "3d", "**/*")
+# https://github.com/siliconflow/ComfyUI-GeometryPack/pull/2
+import os
+if os.environ.get("GEOMPACK_COPY_ASSETS", "1") == "1":
+    copy_files(SCRIPT_DIR / "assets", COMFYUI_DIR / "input" / "3d", "**/*")
