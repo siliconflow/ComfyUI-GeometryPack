@@ -221,7 +221,8 @@ class PreviewMeshVTKNode:
 
         # Return metadata for frontend widget
         ui_data = {
-            "mesh_file": [{"filename": filename, "subfolder": "", "type": "output"}],
+            "mesh_file": [filename],
+            "mesh_file_url": [{"filename": filename, "subfolder": "", "type": "output"}],
             "viewer_type": [viewer_type],  # "fields" or "texture" - tells frontend which viewer to load
             "mode": [mode],  # User-selected mode
             "vertex_count": [len(trimesh.vertices)],
